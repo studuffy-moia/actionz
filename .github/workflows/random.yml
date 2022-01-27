@@ -1,0 +1,13 @@
+name: Random
+on:
+  push:
+    branches:
+      - random_branch
+
+jobs:
+  random-job:
+    runs-on: ubuntu-latest
+    name: random job
+    steps:
+      - name: echo
+        run: echo hello
