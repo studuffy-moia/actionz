@@ -18,6 +18,8 @@ jobs:
         run: echo this is the way
   run-action:
     runs-on: ubuntu-latest
-    uses: ./.github/actions/action
-    with:
-      who-to-greet: "stu"
+    steps:
+      - uses: actions/checkout@v2
+      - uses: ./.github/actions/action
+      with:
+        who-to-greet: "stu"
