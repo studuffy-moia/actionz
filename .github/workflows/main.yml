@@ -16,3 +16,8 @@ jobs:
     steps:
       - name: echo
         run: echo this is the way
+  run-action:
+    runs-on: ubuntu-latest
+    uses: ./.github/actions/sonar-report
+    with:
+      who-to-greet: "stu"
