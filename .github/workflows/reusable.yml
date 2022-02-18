@@ -17,5 +17,5 @@ jobs:
     steps:
       - run: echo Hello ${{ inputs.username }}
         shell: bash
-      - run: echo secret: ${{ secrets.TOKEN }}
+      - run: echo secret ${{ secrets.TOKEN }}
         shell: bash
