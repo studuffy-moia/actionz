@@ -1,0 +1,21 @@
+name: Reusable workflow example
+
+on:
+  workflow_call:
+    inputs:
+      username:
+        required: true
+        type: string
+    secrets:
+      TOKEN:
+        required: true
+
+jobs:
+  example_job:
+    name: Print out an input and a secret
+    runs-on: ubuntu-latest
+    steps:
+      - run: echo Hello ${{ inputs.username }}
+        shell: bash
+      - run: echo secret: ${{ secrets.TOKEN }}
+        shell: bash
