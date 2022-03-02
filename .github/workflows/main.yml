@@ -13,6 +13,8 @@ jobs:
   get-pr-sha:
     if: github.event.issue.pull_request && github.event.comment.body == 'deploy now'
     runs-on: ubuntu-latest
+    outputs:
+      pr_sha: ${{ steps.sha.outputs.result }}
     steps:
       - name: Get PR SHA
         id: sha
@@ -27,18 +29,20 @@ jobs:
               pull_number: number,
             });
             return pr.data.head.sha
-      - name: Export PR SHA
-        run: echo "PR_SHA=${{ steps.sha.outputs.result }}" >> $GITHUB_ENV
+      # - name: Export PR SHA
+      #   run: echo "PR_SHA=${{ steps.sha.outputs.result }}" >> $GITHUB_ENV
   random-job:
     runs-on: ubuntu-latest
+    needs: [get-pr-sha]
     name: main job
     steps:
       - name: echo
         run: echo this is the way
       - name: echo
-        run: echo ${{ env.PR_SHA }}
+        run: echo ${{ needs.get-pr-sha.outputs.pr_sha }}
   run-action:
     runs-on: ubuntu-latest
+    needs: [get-pr-sha]
     steps:
       - uses: actions/checkout@v2
         with:
