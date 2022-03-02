@@ -46,7 +46,7 @@ jobs:
     steps:
       - uses: actions/checkout@v2
         with:
-          ref: ${{ env.PR_SHA }}
+          ref: ${{ needs.get-pr-sha.outputs.pr_sha }}
       - uses: ./.github/actions/test
         with:
           who-to-greet: "stu"
