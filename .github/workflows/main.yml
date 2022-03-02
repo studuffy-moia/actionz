@@ -35,10 +35,14 @@ jobs:
     steps:
       - name: echo
         run: echo this is the way
+      - name: echo
+        run: echo ${{ env.PR_SHA }}
   run-action:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
+        with:
+          ref: ${{ env.PR_SHA }}
       - uses: ./.github/actions/test
         with:
           who-to-greet: "stu"
