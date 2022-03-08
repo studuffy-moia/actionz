@@ -78,7 +78,7 @@ jobs:
       - name: fail
         run: exit 1
       - name: Feedback failure
-        if: ${{ needs.random-job.outputs.deployed != "true" }}
+        if: ${{ needs.random-job.outputs.deployed != 'true' }}
         uses: actions/github-script@v6
         with:
           script: |
@@ -89,7 +89,7 @@ jobs:
               body: 'Deployment failed! ❌',
             });
       - name: Feedback success
-        if: ${{ needs.random-job.outputs.deployed == "true" }}
+        if: ${{ needs.random-job.outputs.deployed == 'true' }}
         uses: actions/github-script@v6
         with:
           script: |
