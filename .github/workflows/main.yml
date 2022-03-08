@@ -72,7 +72,7 @@ jobs:
     needs: [random-job, run-action, get-pr-sha]
     steps:
       - name: Feedback success
-        if: ${{ success() }}
+        if: ${{ !failure() }}
         uses: actions/github-script@v6
         with:
           script: |
