@@ -67,12 +67,11 @@ jobs:
         with:
           who-to-greet: "stu"
   feedback-result-to-pr:
-    if: ${{ always() }}
     runs-on: ubuntu-latest
     needs: [random-job, run-action, get-pr-sha]
     steps:
       - name: Feedback success
-        if: ${{ !failure() }}
+        if: ${{ success() }}
         uses: actions/github-script@v6
         with:
           script: |
