@@ -54,8 +54,8 @@ jobs:
     steps:
       - name: echo
         run: echo this is the way
-      - name: fail
-        run: exit 1
+      # - name: fail
+      #   run: exit 1
       - name: echo
         run: echo ${{ needs.get-pr-sha.outputs.pr_sha }}
       - id: result
