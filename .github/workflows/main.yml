@@ -30,6 +30,8 @@ jobs:
     outputs:
       pr_sha: ${{ steps.sha.outputs.result }}
     steps:
+      - name: fail
+        run: exit 1
       - name: Get PR SHA
         id: sha
         uses: actions/github-script@v6
