@@ -10,6 +10,20 @@ on:
       - created
 
 jobs:
+  feedback-link:
+    if: github.event.issue.pull_request && github.event.comment.body == 'deploy now'
+    runs-on: ubuntu-latest
+    steps:
+      - name: Feedback link
+        uses: actions/github-script@v6
+        with:
+          script: |
+            github.rest.issues.createComment({
+              issue_number: context.issue.number,
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              body: `[Workflow started! 🚀](https://github.com/studuffy-moia/actionz/actions/runs/${{ github.run_id }})`,
+            });
   get-pr-sha:
     if: github.event.issue.pull_request && github.event.comment.body == 'deploy now'
     runs-on: ubuntu-latest
