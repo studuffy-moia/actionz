@@ -71,7 +71,7 @@ jobs:
     steps:
       - name: Feedback success
         if: ${{ success() }}
-        uses: actions/github-script@v4
+        uses: actions/github-script@v6
         with:
           script: |
             github.rest.issues.createComment({
@@ -82,7 +82,7 @@ jobs:
             });
       - name: Feedback failure
         if: ${{ failure() }}
-        uses: actions/github-script@v4
+        uses: actions/github-script@v6
         with:
           script: |
             github.rest.issues.createComment({
