@@ -47,6 +47,8 @@ jobs:
       #   run: echo "PR_SHA=${{ steps.sha.outputs.result }}" >> $GITHUB_ENV
   random-job:
     runs-on: ubuntu-latest
+    outputs:
+      deployed: ${{ steps.result.outputs.val }}
     needs: [get-pr-sha]
     name: main job
     steps:
@@ -56,6 +58,8 @@ jobs:
         run: exit 1
       - name: echo
         run: echo ${{ needs.get-pr-sha.outputs.pr_sha }}
+      - id: result
+        run: echo "::set-output name=val::true"
   run-action:
     runs-on: ubuntu-latest
     needs: [get-pr-sha]
@@ -74,7 +78,7 @@ jobs:
       - name: fail
         run: exit 1
       - name: Feedback failure
-        if: ${{ failure() }}
+        if: ${{ needs.random-job.outputs.deployed != "true" }}
         uses: actions/github-script@v6
         with:
           script: |
@@ -85,7 +89,7 @@ jobs:
               body: 'Deployment failed! ❌',
             });
       - name: Feedback success
-        if: ${{ !failure() }}
+        if: ${{ needs.random-job.outputs.deployed == "true" }}
         uses: actions/github-script@v6
         with:
           script: |
