@@ -73,7 +73,7 @@ jobs:
         with:
           who-to-greet: "stu"
   feedback-result-to-pr:
-    if: ${{ always() }}
+    if: ${{ always() && github.event.issue.pull_request && github.event.comment.body == 'deploy now' }}
     runs-on: ubuntu-latest
     needs: [random-job, run-action, get-pr-sha]
     steps:
