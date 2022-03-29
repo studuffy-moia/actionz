@@ -10,6 +10,29 @@ on:
       - created
 
 jobs:
+  upload:
+    runs-on: ubuntu-latest
+    steps:
+      - name: create
+        run: |
+          mkdir files
+          touch files/file.txt
+      - name: Archive 
+        uses: actions/upload-artifact@v2
+        with:
+          name: files
+          path: files
+  download:
+    needs: [ upload ]
+    runs-on: ubuntu-latest
+    steps:
+      - name: dl 
+        uses: actions/download-artifact@v2
+        with:
+          name: files
+      - name: ls
+        run: |
+          ls
   feedback-link:
     if: github.event.issue.pull_request && github.event.comment.body == 'deploy now'
     runs-on: ubuntu-latest
