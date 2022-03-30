@@ -13,6 +13,9 @@ jobs:
   upload:
     runs-on: ubuntu-latest
     steps:
+      - name: for
+        run: |
+          for i in {1..10}; do echo baloney; done
       - name: create
         run: |
           mkdir files
